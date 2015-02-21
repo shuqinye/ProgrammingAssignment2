@@ -2,10 +2,12 @@
 
 # These two functios are to cache potentially time-consuming computation to find out
 # the inverse of a square matrix. For a short matrix, the operation maybe fast and can be
-# easily computed by using the Solve() function. However, for a matrix with large
+# easily computed by using the solve() function. However, for a matrix with large
 # dimensions, it may take too long. If the content of the matrix is not changing, 
 # its inverse can be looked up in the cache rather than re-computed. These two functions
-# combined does this job.
+# combined does this job and look up the inverse of a matrix in the cache before
+# deciding whether to compute the inverse. Thus, it increases execution speed and saves
+# time.
 
 #### FIRST FUNCTION ####
 
@@ -34,7 +36,8 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 #### SECOND FUNCTION ####
-#The second function, cacheSolve, calculates the inverse of the special
+
+# The second function, cacheSolve, calculates the inverse of the special
 # "matrix" created with the first function. However, it first checks to see if the 
 # inverse has already been calculated. If so, it gets the inverse from the cache and 
 # skips the computation. Otherwise, it calculates the inverse of the data and sets 
@@ -49,7 +52,7 @@ cacheSolve <- function(x, ...) {
         return(i)
     }
     data <- x$get()
-    i <- Solve(data, ...)
+    i <- solve(data, ...)
     x$setinverse(i)
     i
     
